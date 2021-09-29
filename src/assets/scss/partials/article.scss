@@ -10,7 +10,6 @@
         box-shadow: var(--shadow-l1);
         border-radius: var(--card-border-radius);
         overflow: hidden;
-
         transition: box-shadow 0.3s ease;
 
         &:hover {
@@ -52,7 +51,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     padding: var(--card-padding);
 }
 
@@ -84,8 +82,8 @@
     color: var(--card-text-color-secondary);
     margin: 5px 0;
     line-height: 1.5;
-
     font-size: 1rem;
+
     @media (min-width: 1280px) {
         font-size: 2rem;
     }
@@ -166,8 +164,7 @@
 
         .article-details {
             flex-grow: 1;
-            padding: 0;
-            padding-right: 15px;
+            padding: 0 15px 0 0;
             min-height: var(--image-size);
         }
 

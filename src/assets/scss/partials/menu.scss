@@ -123,14 +123,11 @@
 
 /* Menu style */
 .menu {
-    padding-left: 0;
     list-style: none;
-    display: flex;
     flex-direction: column;
     overflow-y: auto;
     flex-grow: 1;
     font-size: 1.4rem;
-
     background-color: var(--card-background);
     padding: 15px 0;
     box-shadow: var(--shadow-l1);
@@ -148,8 +145,7 @@
         background-color: transparent;
         padding: 0;
         box-shadow: none;
-        margin: 0;
-        margin-top: var(--sidebar-element-separation);
+        margin: var(--sidebar-element-separation) 0 0;
     }
 
     @media (min-width: 1280px) {

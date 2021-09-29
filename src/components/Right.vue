@@ -22,12 +22,12 @@
       </div>
       <h2 class="widget-title section-title">最新文章</h2>
       <div class="article-list--compact">
-        <article v-for="article in articles" :key="article">
+        <article v-for="article in articles.slice(0, 5)" :key="article">
           <a :href="'/p/' + article.id">
             <div class="article-details">
               <h2 class="article-title">{{ article.title }}</h2>
               <footer class="article-time">
-                <time class="article-time--published">{{ article.createTime }}</time>
+                <time class="article-time--published">{{ new Date(article.createTime).toLocaleString() }}</time>
               </footer>
             </div>
           </a>
@@ -43,10 +43,11 @@ import {
   Star,
   Infinity
 } from '@vicons/fa'
+import { getAllArticle } from '@/api/article'
 export default defineComponent({
   name: 'Right',
   components: { Star, Infinity },
-  setup () {
+  data () {
     return {
       archives: [
         {
@@ -61,25 +62,25 @@ export default defineComponent({
       articles: [
         {
           id: 0,
-          image: 'https://blog.wangjialei.xyz/images/2021-09-20.png',
+          image: '',
           categoryId: 0,
-          category: '开源项目',
-          title: '个人博客项目开发完rtertetetreteyreyreye成',
-          subtitle: 'SpringBoot + Vue 个人博客',
-          createTime: 'Sep 20 2021',
-          readTime: '2'
-        },
-        {
-          id: 0,
-          image: 'https://blog.wangjialei.xyz/images/2021-09-20.png',
-          categoryId: 0,
-          category: '开源项目',
-          title: '个人博客项目开发完reeeeeeeeeeee成',
-          subtitle: 'SpringBoot + Vue 个人博客',
-          createTime: 'Sep 20 2021',
-          readTime: '2'
+          category: '',
+          title: '',
+          subtitle: '',
+          createTime: '',
+          readTime: ''
         }
       ]
+    }
+  },
+  created () {
+    this.load()
+  },
+  methods: {
+    load () {
+      getAllArticle().then(data => {
+        this.articles = data.data.data.reverse()
+      })
     }
   }
 })

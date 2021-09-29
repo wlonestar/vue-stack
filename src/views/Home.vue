@@ -1,7 +1,7 @@
 <template>
   <section class="article-list">
-    <article class="has-image" v-for="article in articles" :key="article">
-      <a :href="'/p/' + article.id">
+    <article class="has-image" v-for="article in articles.slice(0, 7)" :key="article">
+      <a href="#">
         <div class="article-image">
           <img :src="article.image" loading="lazy" alt=""/>
         </div>
@@ -11,13 +11,13 @@
           <a href="#">{{article.category }}</a>
         </header>
         <h2 class="article-title">
-          <a :href="'/p/' + article.id">{{ article.title }}</a>
+          <a :href="'/p/' + article.title">{{ article.title }}</a>
         </h2>
         <h3 class="article-subtitle">{{ article.subtitle }}</h3>
         <footer class="article-time">
           <div>
             <Calendar></Calendar>
-            <time class="article-time--published">{{ article.createTime }}</time>
+            <time class="article-time--published">{{ new Date(article.createTime).toLocaleString() }}</time>
           </div>
           <div>
             <ClockRegular></ClockRegular>
@@ -27,42 +27,43 @@
       </div>
     </article>
   </section>
-  <n-pagination class="pagination" v-model:page="page" :page-count="num" default-page-size="size" />
+  <div style="text-align: center; margin-top: 20px;">
+    <n-button type="info" @click="$router.push('/archive')">more</n-button>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
+import { NButton } from 'naive-ui'
 import { Calendar, ClockRegular } from '@vicons/fa'
+import { getAllArticle } from '@/api/article'
 export default defineComponent({
   name: 'Home',
-  components: { Calendar, ClockRegular },
-  setup () {
+  components: { Calendar, ClockRegular, NButton },
+  data () {
     return {
-      page: ref(1),
-      num: 10,
-      size: 2,
       articles: [
         {
           id: 0,
-          image: 'https://blog.wangjialei.xyz/images/2021-09-20.png',
+          image: '',
           categoryId: 0,
-          category: '开源项目',
-          title: '个人博客项目开发完成',
-          subtitle: 'SpringBoot + Vue 个人博客',
-          createTime: 'Sep 20 2021',
-          readTime: '2'
-        },
-        {
-          id: 0,
-          image: 'https://blog.wangjialei.xyz/images/2021-09-20.png',
-          categoryId: 0,
-          category: '开源项目',
-          title: '个人博客项目开发完成',
-          subtitle: 'SpringBoot + Vue 个人博客',
-          createTime: 'Sep 20 2021',
-          readTime: '2'
+          category: '',
+          title: '',
+          subtitle: '',
+          createTime: '',
+          readTime: ''
         }
       ]
+    }
+  },
+  created () {
+    this.load()
+  },
+  methods: {
+    load () {
+      getAllArticle().then(data => {
+        this.articles = data.data.data.reverse()
+      })
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="section-card">
     <div class="section-details">
-      <h3 class="section-count">{{ category.number }}</h3>
+      <h3 class="section-count">{{ category.number }} 篇文章</h3>
       <h1 class="section-term">{{ category.name }}</h1>
       <h2 class="section-description">{{ category.description }}</h2>
     </div>

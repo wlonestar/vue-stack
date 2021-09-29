@@ -1,8 +1,8 @@
 <template>
   <div class="section-card">
     <div class="section-details">
-      <h3 class="section-count">5</h3>
-      <h1 class="section-term">category</h1>
+      <h1 class="section-term">分类</h1>
+<!--      <h3 class="section-count">5</h3>-->
     </div>
   </div>
   <section class="article-list--compact">
@@ -48,5 +48,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.section-term {
+  margin: 0;
+  font-size: 2rem;
+}
 </style>

@@ -1,4 +1,6 @@
-# scss-test
+# vue-stack
+
+基于 [CaiJimmy/hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack) 改造的 vue3 个人博客模板，比较简陋，实测性能一般，懒得写 README 了。
 
 ## Project setup
 ```

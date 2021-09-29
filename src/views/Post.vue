@@ -12,7 +12,7 @@
             <a href="#">{{ article.category }}</a>
           </header>
           <h2 class="article-title">
-            <a href="#">{{ article.title }}</a>
+            <a :href="$router.push(`/p/${article.title}`)">{{ article.title }}</a>
           </h2>
           <h3 class="article-subtitle">{{ article.subtitle }}</h3>
           <footer class="article-time">
@@ -42,31 +42,49 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Calendar, ClockRegular } from '@vicons/fa'
+import { getArticle, getByTitle } from '@/api/article'
 export default defineComponent({
   name: 'Post',
   components: { Calendar, ClockRegular },
-  setup () {
+  data () {
     return {
+      title: 0,
       article: {
         id: 0,
-        image: 'https://blog.wangjialei.xyz/images/2021-09-20.png',
+        image: '',
         categoryId: 0,
-        category: '开源项目',
-        title: '个人博客项目开发完成',
-        subtitle: 'SpringBoot + Vue 个人博客',
-        createTime: 'Sep 20 2021',
-        content: '# 2314124',
-        tags: [
-          {
-            id: 0,
-            name: 'tag1'
-          },
-          {
-            id: 2,
-            name: 'tag2'
-          }
-        ]
+        category: '',
+        title: '',
+        subtitle: '',
+        createTime: '',
+        content: ''
       }
+    }
+  },
+  created () {
+    this.title = this.$route.params.id
+    console.log(this.$route.params.title)
+    this.load()
+  },
+  methods: {
+    load () {
+      getArticle(this.title).then(async data => {
+        this.article = data.data.data
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // const hljs = require('highlight.js')
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // const md = require('markdown-it')({
+        //   highlight (str: string, lang: string) {
+        //     if (lang && hljs.getLanguage(lang)) {
+        //       try {
+        //         return hljs.highlight(lang, str).value
+        //       } catch (__) {}
+        //     }
+        //     return ''
+        //   }
+        // })
+        // this.article.content = md.render(this.article.content)
+      })
     }
   }
 })
